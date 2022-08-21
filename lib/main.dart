@@ -24,6 +24,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _MyAppState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   String _pass = '';
   bool _hidePass = true;
 
@@ -50,29 +51,39 @@ class _MyAppState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                TextField(
-                  obscureText: _hidePass,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _hidePass = !_hidePass;
-                        });
-                      },
-                      icon: Icon(
-                          _hidePass ? Icons.visibility : Icons.visibility_off),
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    obscureText: _hidePass,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _hidePass = !_hidePass;
+                          });
+                        },
+                        icon: Icon(_hidePass
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      labelText: 'Password',
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    labelText: 'Password',
+                    onChanged: (String value) {
+                      setState(() {
+                        _pass = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Password Cannot Be Empty';
+                      }
+                      return null;
+                    },
                   ),
-                  onChanged: (String value) {
-                    setState(() {
-                      _pass = value;
-                    });
-                  },
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
@@ -85,6 +96,7 @@ class _MyAppState extends State<LoginPage> {
                         }),
                       );
                     } else {
+                      if (_formKey.currentState!.validate()) {}
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: const Text(

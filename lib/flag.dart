@@ -18,7 +18,7 @@ class _FlagState extends State<Flag> {
         children: [
           SafeArea(
             child: Container(
-              height: MediaQuery.maybeOf(context)?.size.height,
+              height: MediaQuery.maybeOf(context)!.size.height,
               width: MediaQuery.of(context).size.width,
               color: Colors.black,
               child: Padding(
@@ -33,8 +33,8 @@ class _FlagState extends State<Flag> {
                           ),
                           padding: const EdgeInsets.all(10),
                           child: const Text(
-                            'Slashroot CTF 6.0',
-                            style: TextStyle(fontSize: 25, color: Colors.green),
+                            'SlashRoot CTF 6.0',
+                            style: TextStyle(fontSize: 22, color: Colors.green),
                           ),
                         ),
                       ],
@@ -48,7 +48,7 @@ class _FlagState extends State<Flag> {
                     const SizedBox(height: 60),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
+                        primary: Colors.yellow,
                       ),
                       onPressed: () async {
                         text = await scanner.scan();
@@ -56,13 +56,13 @@ class _FlagState extends State<Flag> {
                       },
                       child: const Text(
                         'Cari Flag',
-                        style: TextStyle(color: Colors.yellow),
+                        style: TextStyle(color: Colors.black, fontSize: 18),
                       ),
                     ),
                     const SizedBox(height: 60),
                     SizedBox(
-                      height: 200,
-                      width: 300,
+                      height: 150,
+                      width: 250,
                       child: text == null
                           ? Image.asset(
                               'images/Flag.png',
