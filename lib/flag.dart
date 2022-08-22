@@ -61,8 +61,8 @@ class _FlagState extends State<Flag> {
                     ),
                     const SizedBox(height: 60),
                     SizedBox(
-                      height: 150,
-                      width: 250,
+                      height: 200,
+                      width: 300,
                       child: text == null
                           ? Image.asset(
                               'images/Flag.png',
