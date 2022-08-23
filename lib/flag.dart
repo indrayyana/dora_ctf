@@ -10,6 +10,7 @@ class Flag extends StatefulWidget {
 
 class _FlagState extends State<Flag> {
   var text;
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,31 @@ class _FlagState extends State<Flag> {
                       width: MediaQuery.of(context).size.width,
                       height: 200,
                     ),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 30),
+                    Visibility(
+                      visible: _isVisible,
+                      child: Text(
+                        '{3v3rything_',
+                        style: TextStyle(fontSize: 20, color: Colors.green),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      height: 150,
+                      width: 200,
+                      child: text == null
+                          ? Image.asset(
+                              'images/Flag.png',
+                            )
+                          : Center(
+                              child: Text(
+                                '$text',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.green),
+                              ),
+                            ),
+                    ),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.yellow,
@@ -53,31 +78,14 @@ class _FlagState extends State<Flag> {
                       onPressed: () async {
                         text = await scanner.scan();
                         setState(() {});
+                        setState(() {
+                          _isVisible = !_isVisible;
+                        });
                       },
                       child: const Text(
                         'Cari Flag',
                         style: TextStyle(color: Colors.black, fontSize: 18),
                       ),
-                    ),
-                    const SizedBox(height: 60),
-                    SizedBox(
-                      height: 200,
-                      width: 300,
-                      child: text == null
-                          ? Image.asset(
-                              'images/Flag.png',
-                            )
-                          : Center(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.green),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: Text('$text',
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.green)),
-                              ),
-                            ),
                     ),
                   ],
                 ),
