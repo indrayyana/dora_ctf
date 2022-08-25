@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  qrscan: ^0.3.3
+  mobile_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

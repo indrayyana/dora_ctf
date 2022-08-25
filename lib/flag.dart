@@ -1,5 +1,5 @@
+import 'package:dora_ctf/scan.dart';
 import 'package:flutter/material.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 class Flag extends StatefulWidget {
   const Flag({Key? key}) : super(key: key);
@@ -9,7 +9,6 @@ class Flag extends StatefulWidget {
 }
 
 class _FlagState extends State<Flag> {
-  var text;
   bool _isVisible = false;
 
   @override
@@ -58,26 +57,20 @@ class _FlagState extends State<Flag> {
                     SizedBox(
                       height: 150,
                       width: 200,
-                      child: text == null
-                          ? Image.asset(
-                              'images/Flag.png',
-                            )
-                          : Center(
-                              child: Text(
-                                '$text',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.green),
-                              ),
-                            ),
+                      child: Image.asset(
+                        'images/Flag.png',
+                      ),
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.yellow,
                       ),
-                      onPressed: () async {
-                        text = await scanner.scan();
-                        setState(() {});
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Scan();
+                        }));
                         setState(() {
                           _isVisible = !_isVisible;
                         });
