@@ -1,9 +1,11 @@
 import 'flag.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(MyApp());
@@ -31,6 +33,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _MyAppState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      FlutterNativeSplash.remove();
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
   String _pass = '';
   bool _hidePass = true;
