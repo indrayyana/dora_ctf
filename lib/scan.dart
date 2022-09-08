@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Scan extends StatefulWidget {
   const Scan({Key? key}) : super(key: key);
@@ -111,19 +113,37 @@ class _FoundCodeScreenState extends State<FoundCodeScreen> {
           title: Text('Found Flag'),
           centerTitle: true,
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  widget.value,
-                  style: TextStyle(fontSize: 20),
-                )
-              ],
+        body: Container(
+          color: Colors.yellow,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton(
+                    child: Text(
+                      widget.value,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () async {
+                      await openUrl(
+                        widget.value.toString(),
+                      );
+                    },
+                  ),
+                  // Text(
+                  //   widget.value,
+                  //   style: TextStyle(fontSize: 20),
+                  // )
+                ],
+              ),
             ),
           ),
         ));
   }
+}
+
+Future<void> openUrl(String url) async {
+  await launchUrlString(url, mode: LaunchMode.externalApplication);
 }
